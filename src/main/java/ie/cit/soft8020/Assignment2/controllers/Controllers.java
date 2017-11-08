@@ -10,12 +10,17 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ie.cit.soft8020.Assignment2.basepackage.entities.Person;
+import ie.cit.soft8020.Assignment2.basepackage.entities.Shop;
 import ie.cit.soft8020.Assignment2.repositories.PersonRepo;
+import ie.cit.soft8020.Assignment2.repositories.ShopRepo;
 
 @Controller
 public class Controllers {
 	@Autowired
 	PersonRepo personRepo;
+	
+	@Autowired
+	ShopRepo shopRepo;
 	
 	/**
 	* Calls index.html
@@ -28,7 +33,7 @@ public class Controllers {
 	
 	/*
 	* An example of using a path variable.
-	* localhost:8080/usingParameter?name=Cliona will add Cliona to the welcome
+	* localhost:8080/usingParameter?name=Ryan will add Ryan to the welcome
 	* localhost:8080/usingParameter uses the default value of To You!
 	*/
 	@GetMapping("/usingParameter")
