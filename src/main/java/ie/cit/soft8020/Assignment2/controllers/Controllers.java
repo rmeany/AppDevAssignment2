@@ -51,7 +51,7 @@ public class Controllers {
 	* This list is added to the model
 	* The model is sent to the displayAll.html template.
 	*/
-	@GetMapping("/displayall")
+	@GetMapping("/displayAll")
 	public String displayAll(Model model)
 	{
 		List<Person> p = personRepo.findAll();
