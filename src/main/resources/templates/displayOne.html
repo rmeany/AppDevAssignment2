@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>One Person</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" media="all" href="../static/styles.css"
+th:href="@{/styles.css}" />
+	</head>
+	
+	<body>
+		<h1 th:text="${person.id}">Person's ID</h1>
+		<h1 th:text="${person.name}">Person's Name</h1>
+		<h1 th:text="${person.emailAddress}">Person's Email</h1>
+		<h1 th:text="${person.age}">Person's Age</h1>
+	</body>
+</html>

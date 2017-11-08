@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Spring Boot Thymeleaf Hello World Example</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" media="all" href="../static/styles.css"
+th:href="@{/styles.css}" />
+</head>
+<body>
+<h1>People in Database</h1>
+<table>
+	<tr>
+		<th>ID</th>
+		<th>Name</th>
+		<th>Age</th>
+		<th>Email Address</th>
+	</tr>
+	<tr th:each="person : ${people}">
+		<td th:text="${person.id}">ID</td>
+		<td th:text="${person.name}">NAME</td>
+		<td th:text="${person.age}">AGE</td>
+		<td th:text="${person.emailAddress}">EMAIL ADDRESS</td>
+	</tr>
+</table>
+
+</body>
+</html>
