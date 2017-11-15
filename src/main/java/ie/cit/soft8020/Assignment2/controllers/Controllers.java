@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import ie.cit.soft8020.Assignment2.basepackage.entities.Person;
-import ie.cit.soft8020.Assignment2.basepackage.entities.Shop;
+import ie.cit.soft8020.Assignment2.entities.Flower;
+import ie.cit.soft8020.Assignment2.entities.Person;
+import ie.cit.soft8020.Assignment2.entities.Shop;
+import ie.cit.soft8020.Assignment2.repositories.FlowerRepo;
 import ie.cit.soft8020.Assignment2.repositories.PersonRepo;
 import ie.cit.soft8020.Assignment2.repositories.ShopRepo;
 
@@ -18,6 +20,9 @@ import ie.cit.soft8020.Assignment2.repositories.ShopRepo;
 public class Controllers {
 	@Autowired
 	PersonRepo personRepo;
+	
+	@Autowired
+	FlowerRepo flowerRepo;
 	
 	@Autowired
 	ShopRepo shopRepo;
@@ -57,6 +62,24 @@ public class Controllers {
 		List<Person> p = personRepo.findAll();
 		model.addAttribute("people", p);
 		return "displayAll";
+	}
+	
+	@GetMapping("/presetPackage")
+	public String presetPackage(Model model)
+	{
+		return "presetPackage";
+	}
+	@GetMapping("/customPackage")
+	public String customPackage(Model model)
+	{
+		return "customPackage";
+	}
+	@GetMapping("/flower")
+	public String flower(Model model)
+	{
+		List<Flower> f = flowerRepo.findAll();
+		model.addAttribute("flowers", f);
+		return "flower";
 	}
 	
 	/*
