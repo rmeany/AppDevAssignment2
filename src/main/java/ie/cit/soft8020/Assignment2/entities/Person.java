@@ -6,10 +6,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Document
 public class Person {
 	@Id
-	int id;
-	
-	String name;
-	String eircode;
+	private int id;
+	private String name;
+	private String eircode;
 	
 	
 	public Person(int id, String name, String eircode) {
