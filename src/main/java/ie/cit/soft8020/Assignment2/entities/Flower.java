@@ -8,7 +8,6 @@ public class Flower {
 	
 	@Id
 	private int id;
-	
 	private String name;
 	private double price;
 	private int quantity;
@@ -47,4 +46,10 @@ public class Flower {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
+
+	@Override
+	public String toString() {
+		return name + ", price per flower:" + price + ", quantity:" + quantity + "";
+	}
+	
 }

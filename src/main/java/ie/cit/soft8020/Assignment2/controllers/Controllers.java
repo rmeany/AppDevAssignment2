@@ -7,30 +7,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import ie.cit.soft8020.Assignment2.entities.Flower;
-import ie.cit.soft8020.Assignment2.entities.Order;
 import ie.cit.soft8020.Assignment2.entities.Person;
-import ie.cit.soft8020.Assignment2.entities.Shop;
 import ie.cit.soft8020.Assignment2.entities.Package;
-import ie.cit.soft8020.Assignment2.repositories.FlowerRepo;
-import ie.cit.soft8020.Assignment2.repositories.OrderRepo;
-import ie.cit.soft8020.Assignment2.repositories.PackageRepo;
 import ie.cit.soft8020.Assignment2.repositories.PersonRepo;
+import ie.cit.soft8020.Assignment2.utils.Worker;
 
 @Controller
 public class Controllers {
 	@Autowired
 	PersonRepo personDAO;
 	@Autowired
-	FlowerRepo flowerDAO;
-	@Autowired
-	PackageRepo preSetDAO;
-	@Autowired
-	PackageRepo customDAO;
-	@Autowired
-	OrderRepo orderDAO;
+	Worker worker;
+	
 	
 	/**
 	* Calls index.html
@@ -84,8 +75,7 @@ public class Controllers {
 	@GetMapping("/presetPackage")
 	public String presetPackage(Model model)
 	{
-		List<Package> preSet = preSetDAO.findAll();
-		model.addAttribute("packages", preSet);
+		model.addAttribute("packages", worker.presets());
 		return "presetPackage";
 	}
 	@GetMapping("/customPackage")
@@ -93,19 +83,23 @@ public class Controllers {
 	{
 		return "customPackage";
 	}
+	@GetMapping("/deleteOrder/{orderId}")
+	public String deleteOrder(@PathVariable String orderId,Model model)
+	{
+		worker.deleteOrder(orderId);
+		return "redirect:/order";
+	}
 	@GetMapping("/flower")
 	public String flower(Model model)
 	{
-		List<Flower> f = flowerDAO.findAll();
-		model.addAttribute("flowers", f);
+		model.addAttribute("flowers", worker.getFlowers());
 		return "flower";
 	}
 	
 	@GetMapping("/order")
 	public String order(Model model)
 	{
-		List<Order> o = orderDAO.findAll();
-		model.addAttribute("orders", o);
+		model.addAttribute("orders", worker.myOrders());
 		return "order";
 	}
 	
@@ -123,5 +117,19 @@ public class Controllers {
 		model.addAttribute("person", p);
 		return "displayOne";
 	}
+	@PostMapping("/cart/addPackage")
+	public String addToCart(Package p)
+	{
+		System.out.println(p.getName() +" "+ p.getPrice() + " " + p);
+		worker.addToShoppingCart(p);
+		return "redirect:/home";	
+	}
+	@PostMapping("/cart/addFlower")
+	public String addToCart(Flower f)
+	{
+		worker.addToShoppingCart(f);
+		return "redirect:/home";
+	}
+	
 }
 

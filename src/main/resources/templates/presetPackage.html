@@ -10,17 +10,35 @@ th:href="@{/styles.css}" />
 <h1>Pre-Set Packages</h1>
 
 <a href="home.html"><button type="button">Home</button></a>
+
+
+<!-- The below code works for adding objects to the cart but it is not in tabular form. -->
+TODO: find a way to make this tabular 
+  <div th:each="package : ${packages}">
+  	<form th:object="${package}" th:action="@{cart/addPackage}" method="post">
+    	<input type="text" th:name="name" th:value="${package.name}"></input>
+        <input type="text" th:name="price" th:value="${package.price}"></input>
+        <input type="submit"  value="add to cart"></input>
+    </form>
+  </div>
+  
+  
+  <!--  this currently does not work. the package that is passed to cart/addPackage is null -->
 <table>
 	<tr>
 		<th>Name</th>
 		<th>Price</th>
 	</tr>
-	<tr th:each="package : ${packages}">
-		<td th:text="${package.name}">NAME</td>
-		<td th:text="${package.price}">PRICE</td>
-		<a href="presetPackage.html"><button type="button">View Contents</button></a>
-		<a href="presetPackage.html"><button type="button">Add to Cart</button></a>
+	 <tr th:each="package : ${packages}">
+		<!-- <td><form action="#" th:action="@{/addToCart}" th:object="${package}" method="post"></td> -->
+		<form th:object="${package}" th:action="@{cart/addPackage}" method="post">
+		<td th:name="name" th:text="${package.name}">NAME</td>
+		<td th:name="price" th:text="${package.price}">PRICE</td>
+		<td><button type="submit">Add to Cart</button></td>
+		</form>
+		<!-- </form> -->
 	</tr>
+	
 </table>
 </body>
 </html>
