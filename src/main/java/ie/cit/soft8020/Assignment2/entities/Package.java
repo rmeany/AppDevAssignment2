@@ -9,15 +9,51 @@ public class Package {
 	@Id
 	private int id;
 	private String name;
-	private int price;
+	private double price;
+	private Flower flower;
+	private AddOn addon;
 	
-	public Package(int id, String name, int price) {
-		super();
+	
+	public Package() {
+	}
+
+
+
+	public Package(int id, String name, double price,Flower flower,AddOn addon) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
+		this.flower=flower;
+		this.addon=addon;
+		
 	}
 	
+	
+	
+	public Flower getFlower() {
+		return flower;
+	}
+
+
+
+	public void setFlower(Flower flower) {
+		this.flower = flower;
+	}
+
+
+
+	public AddOn getAddon() {
+		return addon;
+	}
+
+
+
+	public void setAddon(AddOn addon) {
+		this.addon = addon;
+	}
+
+
+
 	public int getId() {
 		return id;
 	}
@@ -30,10 +66,10 @@ public class Package {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getPrice() {
+	public double getPrice() {
 		return price;
 	}
-	public void setPrice(int price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 }

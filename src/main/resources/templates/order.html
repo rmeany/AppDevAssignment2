@@ -10,19 +10,19 @@ th:href="@{/styles.css}" />
 <h1>List orders below</h1>
 
 <a href="home.html"><button type="button">Home</button></a>
-<table>
-	<tr>
-		<th>ID</th>
-		<th>Name</th>
-		<th>Contents</th>
-		<th>Cost</th>
-	</tr>
-	<tr th:each="order : ${orders}">
-		<td th:text="${order.florestId}">FLORESTID</td>
-		<td th:text="${order.florestName}">NAME</td>
-		<td th:text="${order.contents}">CONTENTS</td>
-		<td th:text="${order.cost}">COST</td>
-	</tr>
-</table>
+	<table>
+		<tr>
+			<th>Order ID</th>
+			<th>Contents</th>
+			<th>Cost</th>
+		</tr>
+		<tr th:each="order : ${orders}">
+			<td th:text="${order.id}">FLORESTID</td>
+			<td th:text="${order.contents}">CONTENTS</td>
+			<td th:text="${order.cost}">COST</td>
+			<td><a th:href="@{/deleteOrder/{id}(id=${order.id})}" >Delete order</a></td>
+			<!-- @{/users/doDelete/{id}(id=${user.id})}" -->
+		</tr>
+	</table>
 </body>
 </html>
