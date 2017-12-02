@@ -2,13 +2,18 @@ package ie.cit.soft8020.Assignment2.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import ie.cit.soft8020.Assignment2.entities.CustomerOrder;
 import ie.cit.soft8020.Assignment2.entities.Flower;
 import ie.cit.soft8020.Assignment2.entities.Person;
 import ie.cit.soft8020.Assignment2.entities.Package;
@@ -96,6 +101,33 @@ public class Controllers {
 		return "flower";
 	}
 	
+	@GetMapping("/cart")
+	public String cart(Model model)
+	{
+		
+		model.addAttribute("cart", worker.getCart());
+		return "cart";
+	}
+	
+	
+	@GetMapping("/checkout")
+	public String checkout(CustomerOrder customerOrder,Model m)
+	{
+		return "checkout";
+	}
+	
+	@PostMapping("/checkout")
+	public String checkoutPost(@Valid CustomerOrder ord,BindingResult bindingResult)
+	{
+		
+		if (bindingResult.hasErrors()) {
+			return "checkout"; 
+		}
+	
+		worker.makeOrder(ord);
+		return "redirect:/home";
+	}
+	
 	@GetMapping("/order")
 	public String order(Model model)
 	{
@@ -118,17 +150,10 @@ public class Controllers {
 		return "displayOne";
 	}
 	@PostMapping("/cart/addPackage")
-	public String addToCart(Package p)
+	public String addToCart(Package p )
 	{
-		System.out.println(p.getName() +" "+ p.getPrice() + " " + p);
 		worker.addToShoppingCart(p);
 		return "redirect:/home";	
-	}
-	@PostMapping("/cart/addFlower")
-	public String addToCart(Flower f)
-	{
-		worker.addToShoppingCart(f);
-		return "redirect:/home";
 	}
 	
 }

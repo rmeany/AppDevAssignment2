@@ -7,14 +7,13 @@ import org.springframework.stereotype.Component;
 public class ShoppingCart {
 
 	
-	private ArrayList<Flower> flowers; 
+	
 	private ArrayList<Package> packages;
 	private double totalCost;
 	
 	
 	
 	public ShoppingCart() {
-		flowers = new ArrayList<Flower>();
 		packages = new ArrayList<Package>();
 		totalCost=0;
 	}
@@ -37,26 +36,9 @@ public class ShoppingCart {
 		decreaseCost(p.getPrice());
 		this.packages.remove(p);
 	}
-	public void add(Flower f)
-	{
-		increaseCost((f.getPrice()*f.getQuantity()));
-		this.flowers.add(f);
-	}
-	public void removeFlower(Flower f)
-	{
-		decreaseCost((f.getPrice()*f.getQuantity()));
-		this.flowers.remove(f);
-	}
 	
 	
 	
-	
-	public ArrayList<Flower> getFlowers() {
-		return flowers;
-	}
-	public void setFlowers(ArrayList<Flower> flowers) {
-		this.flowers = flowers;
-	}
 	public ArrayList<Package> getPackages() {
 		return packages;
 	}
@@ -69,7 +51,14 @@ public class ShoppingCart {
 	public void setTotalCost(double totalCost) {
 		this.totalCost = totalCost;
 	}
-	
-	
+	public boolean isEmpty()
+	{
+		return this.packages.isEmpty();
+	}
+	public void empty()
+	{
+		packages.clear();
+		totalCost=0;
+	}
 	
 }

@@ -12,33 +12,25 @@ th:href="@{/styles.css}" />
 <a href="home.html"><button type="button">Home</button></a>
 
 
-<!-- The below code works for adding objects to the cart but it is not in tabular form. -->
-TODO: find a way to make this tabular 
   <div th:each="package : ${packages}">
   	<form th:object="${package}" th:action="@{cart/addPackage}" method="post">
-    	<input type="text" th:name="name" th:value="${package.name}"></input>
-        <input type="text" th:name="price" th:value="${package.price}"></input>
-        <input type="submit"  value="add to cart"></input>
+  		<hr/>
+    	Name:<span th:text="${package.name}"></span><input type="hidden" th:name="name" th:value="${package.name}" ></input>
+        <br/>Contains:<span th:text="${package.flower}"></span>
+        <input type="hidden" th:name="flower.name" th:value="${package.flower.name}" ></input>
+        <input type="hidden" th:name="flower.price" th:value="${package.flower.price}" ></input>
+        <input type="hidden" th:name="flower.quantity" th:value="${package.flower.quantity}" ></input>
+        <input type="hidden" th:name="flower.id" th:value="${package.flower.id}"></input>
+        
+        <br/><span th:text="${package.addon}"></span>
+        <input type="hidden" th:name="addon.name" th:value="${package.addon.name}" ></input>
+        <input type="hidden" th:name="addon.cost" th:value="${package.addon.cost}" ></input>
+        
+        
+        <br/>Cost:€<span th:text="${package.price}"></span><input type="hidden" th:name="price" th:value="${package.price}"></input>
+        <br/><input type="submit"  value="Add to cart"></input>
+        
     </form>
   </div>
-  
-  
-  <!--  this currently does not work. the package that is passed to cart/addPackage is null -->
-<table>
-	<tr>
-		<th>Name</th>
-		<th>Price</th>
-	</tr>
-	 <tr th:each="package : ${packages}">
-		<!-- <td><form action="#" th:action="@{/addToCart}" th:object="${package}" method="post"></td> -->
-		<form th:object="${package}" th:action="@{cart/addPackage}" method="post">
-		<td th:name="name" th:text="${package.name}">NAME</td>
-		<td th:name="price" th:text="${package.price}">PRICE</td>
-		<td><button type="submit">Add to Cart</button></td>
-		</form>
-		<!-- </form> -->
-	</tr>
-	
-</table>
 </body>
 </html>

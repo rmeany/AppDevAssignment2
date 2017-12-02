@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Phillie's Flowers</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<link rel="stylesheet" type="text/css" media="all" href="../static/styles.css"
+th:href="@{/styles.css}" />
+</head>
+<body>
+<h1>Your cart</h1>
+
+<a href="home.html"><button type="button">Home</button></a>
+<h2 class="checkout"><a href="checkout.html">Checkout</a></h2>
+<h2>
+	Total Cost:€<span th:text="${cart.totalCost}"></span>
+</h2>
+<div th:if="${cart.packages.isEmpty() == true}">Your cart is empty.</div>
+
+<div th:if="${cart.packages.isEmpty() == false}">
+	<h2>Contents</h2>
+	<table>
+		<tr>
+			<th>Name</th>
+			<th>Price</th>
+		</tr>
+		<tr th:each="package : ${cart.packages}">
+			<td th:text="${package.name}">NAME</td>
+			<td th:text="${package.price}">PRICE</td>
+		</tr>
+	</table>
+</div>
+
+
+</body>
+</html>
