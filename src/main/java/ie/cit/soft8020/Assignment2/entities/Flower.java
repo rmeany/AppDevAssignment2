@@ -49,7 +49,7 @@ public class Flower {
 
 	@Override
 	public String toString() {
-		return name + ", price per flower:" + price + ", quantity:" + quantity + "";
+		return quantity + " " + name+"s";
 	}
 	
 }

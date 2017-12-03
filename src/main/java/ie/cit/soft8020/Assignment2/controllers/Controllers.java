@@ -125,7 +125,7 @@ public class Controllers {
 		}
 	
 		worker.makeOrder(ord);
-		return "redirect:/home";
+		return "redirect:/";
 	}
 	
 	@GetMapping("/order")
@@ -153,7 +153,7 @@ public class Controllers {
 	public String addToCart(Package p )
 	{
 		worker.addToShoppingCart(p);
-		return "redirect:/home";	
+		return "redirect:/";	
 	}
 	
 }

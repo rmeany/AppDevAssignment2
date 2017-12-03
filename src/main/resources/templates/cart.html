@@ -3,33 +3,64 @@
 <head>
 <title>Phillie's Flowers</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	<link rel="stylesheet" type="text/css" media="all" href="../static/styles.css"
-th:href="@{/styles.css}" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="../static/styles.css" th:href="@{/styles1.css}" />
+<link rel="stylesheet" href="../static/bootstrap.css"
+	th:href="@{/bootstrap.css}" />
 </head>
 <body>
-<h1>Your cart</h1>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="fh5co-navbar-brand">
+								<a class="fh5co-logo" href="/.html">Phillie's Flowers</a>
+							</div>
+						</div>
+						<div class="col-md-9 main-nav">
+							<ul class="nav text-right">
+								<li><a href="/.html"><span>Home</span></a></li>
+								<li><a href="presetPackage.html">Pre-set Packages</a></li>
+								<li><a href="customPackage.html">Custom Packages</a></li>
+								<li><a href="flower.html">Individual Flowers</a></li>
+								<li><a href="order.html">Orders</a></li>
+								<li class="active"><a href="cart.html">Cart</a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+	</div>
+	<div class="container">
+		<h3 class="text-right" th:if="${cart.packages.isEmpty() == false}">
+			Total Cost:€<span th:text="${cart.totalCost}"></span>
+		</h3>
+		<h3 class="text-right" th:if="${cart.packages.isEmpty() == false}">
+			<a href="checkout.html">Checkout</a>
+		</h3>
+		<div class="text-center" th:if="${cart.packages.isEmpty() == true}"><p>Your cart is
+			empty.</p></div>
 
-<a href="home.html"><button type="button">Home</button></a>
-<h2 class="checkout"><a href="checkout.html">Checkout</a></h2>
-<h2>
-	Total Cost:€<span th:text="${cart.totalCost}"></span>
-</h2>
-<div th:if="${cart.packages.isEmpty() == true}">Your cart is empty.</div>
-
-<div th:if="${cart.packages.isEmpty() == false}">
-	<h2>Contents</h2>
-	<table>
-		<tr>
-			<th>Name</th>
-			<th>Price</th>
-		</tr>
-		<tr th:each="package : ${cart.packages}">
-			<td th:text="${package.name}">NAME</td>
-			<td th:text="${package.price}">PRICE</td>
-		</tr>
-	</table>
-</div>
-
+		<div class="text-center" th:if="${cart.packages.isEmpty() == false}">
+			<h2>Contents</h2>
+			
+			<table class="center">
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+				</tr>
+				<tr th:each="package : ${cart.packages}">
+					<td th:text="${package.name}">NAME</td>
+					<td th:text="${package.price}">PRICE</td>
+					<td><button>WIP</button></td>
+				</tr>
+			</table>
+			
+		</div>
+	</div>
 
 </body>
 </html>

@@ -39,7 +39,7 @@ public class AddOn {
 	}
 	@Override
 	public String toString() {
-		return name + ", cost:" + cost;
+		return name;
 	}
 	
 	
