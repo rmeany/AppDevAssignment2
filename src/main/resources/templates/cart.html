@@ -1,0 +1,61 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/header :: header-css">
+</head>
+<body>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="fh5co-navbar-brand">
+								<a class="fh5co-logo" href="/">Phillie's Flowers</a>
+							</div>
+						</div>
+						<div class="col-md-9 main-nav">
+							<ul class="nav text-right">
+								<li><a href="/"><span>Home</span></a></li>
+								<li><a href="presetPackage">Pre-set Packages</a></li>
+								<li><a href="customPackage">Custom Packages</a></li>
+								<li><a href="flower">Individual Flowers</a></li>
+								<li><a href="order">Orders</a></li>
+								<li class="active"><a href="cart">Cart</a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+	</div>
+	<div class="container">
+		<h3 class="text-right" th:if="${cart.packages.isEmpty() == false}">
+			Total Cost:€<span th:text="${cart.totalCost}"></span>
+		</h3>
+		<h3 class="text-right" th:if="${cart.packages.isEmpty() == false}">
+			<a href="/cart/checkout">Checkout</a>
+		</h3>
+		<div class="text-center" th:if="${cart.packages.isEmpty() == true}"><p>Your cart is
+			empty.</p></div>
+
+		<div class="text-center" th:if="${cart.packages.isEmpty() == false}">
+			<h2>Contents</h2>
+			
+			<table class="center">
+				<tr>
+					<th>Name</th>
+					<th>Price</th>
+				</tr>
+				<tr th:each="package : ${cart.packages}">
+					<td th:text="${package.name}">NAME</td>
+					<td th:text="${package.price}">PRICE</td>
+					<td><button>WIP</button></td>
+				</tr>
+			</table>
+			
+		</div>
+	</div>
+
+</body>
+</html>

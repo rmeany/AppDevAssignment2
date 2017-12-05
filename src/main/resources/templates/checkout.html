@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header-css">
+</head>
+<body>
+	<div class="box-wrap">
+		<header role="banner" id="fh5co-header">
+			<div class="container">
+				<nav class="navbar navbar-default">
+					<div class="row">
+						<div class="col-md-3">
+							<div class="fh5co-navbar-brand">
+								<a class="fh5co-logo" href="/">Phillie's Flowers</a>
+							</div>
+						</div>
+						<div class="col-md-9 main-nav">
+							<ul class="nav text-right">
+								<li><a href="/"><span>Home</span></a></li>
+								<li><a href="presetPackage">Pre-set Packages</a></li>
+								<li><a href="customPackage">Custom Packages</a></li>
+								<li><a href="flower">Individual Flowers</a></li>
+								<li><a href="order">Orders</a></li>
+								<li class="active"><a href="cart">Cart</a></li>
+							</ul>
+						</div>
+					</div>
+				</nav>
+			</div>
+		</header>
+	</div>
+	<div class="container">
+		<form action="#" th:object="${customerOrder}" th:action="@{/cart/checkout}"
+			method="post">
+
+			<table>
+				<tr>
+					<td>First name:</td>
+					<td><input type="text" th:field="*{fName}" /></td>
+					<td th:if="${#fields.hasErrors('fName')}" th:errors="*{fName}">first
+						name error message</td>
+				</tr>
+				<tr>
+					<td>Last name:</td>
+					<td><input type="text" th:field="*{lName}" /></td>
+					<td th:if="${#fields.hasErrors('lName')}" th:errors="*{lName}">last
+						name error message</td>
+				</tr>
+				<tr>
+					<td>Address:</td>
+					<td><input type="text" th:field="*{address}" /></td>
+					<td th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address
+						error message</td>
+				</tr>
+				<tr>
+					<td>Credit Card number:</td>
+					<td><input type="text" th:field="*{creditCardNum}" /></td>
+					<td th:if="${#fields.hasErrors('creditCardNum')}"
+						th:errors="*{creditCardNum}">creditCardNum error message</td>
+				</tr>
+				<tr>
+					<td>Phone Number:</td>
+					<td><input type="text" th:field="*{phoneNumber}" /></td>
+					<td th:if="${#fields.hasErrors('phoneNumber')}"
+						th:errors="*{phoneNumber}">phoneNumber error message</td>
+				</tr>
+				<tr>
+					<td><button type="submit">Submit post</button></td>
+				</tr>
+			</table>
+
+
+		</form>
+	</div>
+</body>
+</html>

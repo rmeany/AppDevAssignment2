@@ -7,14 +7,14 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Flower {
 	
 	@Id
-	private int id;
+	private String id;
 	private String name;
 	private double price;
 	private int quantity;
 	
 	public Flower() {}
 	
-	public Flower(int id, String name, double price, int quantity) {
+	public Flower(String id, String name, double price, int quantity) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -22,10 +22,10 @@ public class Flower {
 		this.quantity = quantity;
 	}
 	
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -49,7 +49,7 @@ public class Flower {
 
 	@Override
 	public String toString() {
-		return name + ", price per flower:" + price + ", quantity:" + quantity + "";
+		return quantity + " " + name+"s";
 	}
 	
 }
