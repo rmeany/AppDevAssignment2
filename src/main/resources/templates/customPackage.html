@@ -1,12 +1,7 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-<title>Phillie's Flowers</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-<link rel="stylesheet" type="text/css" media="all"
-	href="../static/styles.css" th:href="@{/styles1.css}" />
-<link rel="stylesheet" href="../static/bootstrap.css"
-	th:href="@{/bootstrap.css}" />
+
+<head th:replace="fragments/header :: header-css">
 </head>
 <body>
 	<div class="box-wrap">
@@ -16,18 +11,18 @@
 					<div class="row">
 						<div class="col-md-3">
 							<div class="fh5co-navbar-brand">
-								<a class="fh5co-logo" href="/.html">Phillie's Flowers</a>
+								<a class="fh5co-logo" href="/">Phillie's Flowers</a>
 							</div>
 						</div>
 						<div class="col-md-9 main-nav">
 							<ul class="nav text-right">
-								<li><a href="/.html"><span>Home</span></a></li>
-								<li><a href="presetPackage.html">Pre-set Packages</a></li>
-								<li class="active"><a href="customPackage.html">Custom
+								<li><a href="/"><span>Home</span></a></li>
+								<li><a href="presetPackage">Pre-set Packages</a></li>
+								<li class="active"><a href="customPackage">Custom
 										Packages</a></li>
-								<li><a href="flower.html">Individual Flowers</a></li>
-								<li><a href="order.html">Orders</a></li>
-								<li><a href="cart.html">Cart</a></li>
+								<li><a href="flower">Individual Flowers</a></li>
+								<li><a href="order">Orders</a></li>
+								<li><a href="cart">Cart</a></li>
 							</ul>
 						</div>
 					</div>
@@ -38,8 +33,25 @@
 	<form>
 		<div class="container">
 			<h2 class="text-center">Choose a flower type and a quantity</h2>
-
+			<table>
+				<thead>
+					<tr>
+						<th>Name</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr th:each="flower : ${Flowers}">
+						<td th:text="${flower.name}"></td>
+					</tr>
+				</tbody>
+			</table>
+			<div class="text-center" th:each="flower : ${Flowers}">
+				<span th:text="${flower.name}"></span>
+			</div>
 			<h2 class="text-center">Choose a addon for your package</h2>
+			<div class="text-center" th:each="addon : ${Addons}">
+				<span th:text="${addon.name}"></span>
+			</div>
 		</div>
 	</form>
 

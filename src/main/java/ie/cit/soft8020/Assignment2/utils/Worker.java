@@ -9,10 +9,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
+import ie.cit.soft8020.Assignment2.entities.AddOn;
 import ie.cit.soft8020.Assignment2.entities.CustomerOrder;
 import ie.cit.soft8020.Assignment2.entities.Flower;
 import ie.cit.soft8020.Assignment2.entities.Order;
 import ie.cit.soft8020.Assignment2.entities.ShoppingCart;
+import ie.cit.soft8020.Assignment2.repositories.AddOnRepo;
 import ie.cit.soft8020.Assignment2.repositories.OrderRepo;
 import ie.cit.soft8020.Assignment2.repositories.PackageRepo;
 import ie.cit.soft8020.Assignment2.entities.Package;
@@ -26,6 +28,8 @@ public class Worker {
 	ShoppingCart cart;
 	@Autowired
 	OrderRepo orderDAO;
+	@Autowired
+	AddOnRepo addonDAO;
 	
 	//Make these more spring like ie autowired or value injection
 	private RestTemplate restTemplate;
@@ -43,6 +47,10 @@ public class Worker {
 	{
 		this.restTemplate=new RestTemplate();
 		this.backendURI = "http://localhost:8001";
+	}
+	public List<AddOn> getAddons()
+	{
+		return addonDAO.findAll();
 	}
 	public ShoppingCart getCart()
 	{

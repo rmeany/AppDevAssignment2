@@ -11,10 +11,10 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import ie.cit.soft8020.Assignment2.entities.CustomerOrder;
-import ie.cit.soft8020.Assignment2.entities.Flower;
 import ie.cit.soft8020.Assignment2.entities.Person;
 import ie.cit.soft8020.Assignment2.entities.Package;
 import ie.cit.soft8020.Assignment2.repositories.PersonRepo;
@@ -86,6 +86,8 @@ public class Controllers {
 	@GetMapping("/customPackage")
 	public String customPackage(Model model)
 	{
+		model.addAttribute("Addons",worker.getAddons());
+		model.addAttribute("Flowers",worker.getFlowers());
 		return "customPackage";
 	}
 	@GetMapping("/deleteOrder/{orderId}")
@@ -104,19 +106,18 @@ public class Controllers {
 	@GetMapping("/cart")
 	public String cart(Model model)
 	{
-		
 		model.addAttribute("cart", worker.getCart());
 		return "cart";
 	}
 	
 	
-	@GetMapping("/checkout")
+	@GetMapping("/cart/checkout")
 	public String checkout(CustomerOrder customerOrder,Model m)
 	{
 		return "checkout";
 	}
 	
-	@PostMapping("/checkout")
+	@PostMapping("/cart/checkout")
 	public String checkoutPost(@Valid CustomerOrder ord,BindingResult bindingResult)
 	{
 		
@@ -153,8 +154,24 @@ public class Controllers {
 	public String addToCart(Package p )
 	{
 		worker.addToShoppingCart(p);
-		return "redirect:/";	
+		return "redirect:/cart";	
 	}
+	
+	@GetMapping("/admin")
+    public String admin() {
+        return "/admin";
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "/login";
+    }
+
+    @GetMapping("/403")
+    public String error403() {
+        return "/error/403";
+    }
+	
 	
 }
 

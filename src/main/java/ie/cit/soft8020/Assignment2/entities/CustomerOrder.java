@@ -2,7 +2,6 @@ package ie.cit.soft8020.Assignment2.entities;
 
 import java.util.ArrayList;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
@@ -19,10 +18,10 @@ public class CustomerOrder {
 	
 	@NotNull
 	@Size(min=3,max=255)
-	private String firstName;
+	private String fName;
 	@NotNull
 	@Size(min=3,max=255)
-	private String lastName;
+	private String lName;
 	@NotNull
 	@Size(min=5,max=255)
 	private String address;
@@ -39,9 +38,9 @@ public class CustomerOrder {
 
 	
 	
-	public CustomerOrder(String firstName, String lastName,String address, String creditCardNum, String phoneNumber) {
-		this.firstName=firstName;
-		this.lastName=lastName;
+	public CustomerOrder(String fName, String lName,String address, String creditCardNum, String phoneNumber) {
+		this.fName=fName;
+		this.lName=lName;
 		this.address = address;
 		this.creditCardNum = creditCardNum;
 		this.phoneNumber = phoneNumber;
@@ -49,12 +48,12 @@ public class CustomerOrder {
 
 
 
-	public CustomerOrder(double cost, ArrayList<Package> packages,String firstName, String lastName, String address, 
+	public CustomerOrder(double cost, ArrayList<Package> packages,String fName, String lName, String address, 
 			String creditCardNum,String phoneNumber) {
 		this.cost = cost;
 		this.packages = packages;
-		this.firstName=firstName;
-		this.lastName=lastName;
+		this.fName=fName;
+		this.lName=lName;
 		this.address = address;
 		this.creditCardNum = creditCardNum;
 		this.phoneNumber = phoneNumber;
@@ -62,13 +61,13 @@ public class CustomerOrder {
 	
 	
 	
-	public CustomerOrder(String id, double cost, ArrayList<Package> packages,String firstName, String lastName, 
+	public CustomerOrder(String id, double cost, ArrayList<Package> packages,String fName, String lName, 
 			String address, String creditCardNum,String phoneNumber) {
 		this.id = id;
 		this.cost = cost;
 		this.packages = packages;
-		this.firstName=firstName;
-		this.lastName=lastName;
+		this.fName=fName;
+		this.lName=lName;
 		this.address = address;
 		this.creditCardNum = creditCardNum;
 		this.phoneNumber = phoneNumber;
@@ -115,26 +114,26 @@ public class CustomerOrder {
 
 
 
-	public String getFirstName() {
-		return firstName;
+	public String getFName() {
+		return fName;
 	}
 
 
 
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFName(String fName) {
+		this.fName = fName;
 	}
 
 
 
-	public String getLastName() {
-		return lastName;
+	public String getLName() {
+		return lName;
 	}
 
 
 
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
+	public void setLName(String lName) {
+		this.lName = lName;
 	}
 	
 	
