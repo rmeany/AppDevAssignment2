@@ -8,20 +8,24 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.web.access.AccessDeniedHandler;
 @Configuration
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
-	  @Autowired
+	  
+	
+	
+		@Autowired
 	    private AccessDeniedHandler accessDeniedHandler;
-
+	
 	    // roles admin allow to access /admin/**
 	    // roles user allow to access /user/**
 	    // custom 403 access denied handler
 	    @Override
 	    protected void configure(HttpSecurity http) throws Exception {
-	    	 
+
+	    	
 	        http.csrf().disable() //I don't know if we need this 
 	                .authorizeRequests()
 						.antMatchers("/", "/presetPackage","/cart/**",
-								"/customPackage","/style.css").permitAll() // /resources/static/** does not work for importing css stuff for some reason
-						.antMatchers("/Admin/**","/flower").hasAnyRole("ADMIN")
+								"/customPackage/**","/style.css","/cart/**").permitAll() // /resources/static/** does not work for importing css stuff for some reason
+						.antMatchers("/admin/**").hasAnyRole("ADMIN")
 						.anyRequest().authenticated()
 	                .and()
 	                .formLogin()
@@ -40,7 +44,7 @@ public class SpringSecurityConfig extends WebSecurityConfigurerAdapter{
 	    public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
 
 	        auth.inMemoryAuthentication()
-	                .withUser("Philomena").password("iloveflowers").roles("ADMIN");
+	                .withUser("Philomena").password("flowerpower").roles("ADMIN");
 	    }
 	
 	

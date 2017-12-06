@@ -2,6 +2,7 @@ package ie.cit.soft8020.Assignment2.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -69,6 +70,7 @@ public class Worker {
 		Flower[] f =restTemplate.getForObject(backendURI+"/allFlowers", Flower[].class);
 		return f;
 	}
+	
 	public void addToShoppingCart(Package p)
 	{
 		shoppingCart.add(p);
@@ -77,6 +79,43 @@ public class Worker {
 	{
 		restTemplate.delete(backendURI+"/deleteOrder/"+id);
 	}
+	public Flower getFlowerDetails(String id)
+	{
+		return restTemplate.getForObject(backendURI+"/flowerDetails?id="+id, Flower.class);
+	}
+	public List<CustomerOrder> getCustomerOrders()
+	{
+		return orderDAO.findAll();
+	}
+	
+	public void addCustomPackageToCart(Package p )
+	{
+		
+		String flowerId = p.getFlower().getId();
+		String addonId = p.getAddon().getId();
+		
+		Flower f = getFlowerDetails(flowerId);
+		AddOn a = addonDAO.findOne(addonId);
+		
+		p.getFlower().setName(f.getName());
+		p.getFlower().setPrice(f.getPrice());
+		
+		p.getAddon().setName(a.getName());
+		p.getAddon().setCost(a.getCost());
+		
+		p.setPrice((p.getAddon().getCost()) + (p.getFlower().getQuantity()*p.getFlower().getPrice()));
+		
+		String uniqueID = UUID.randomUUID().toString();
+		p.setId(uniqueID);
+		if(p.getName().equalsIgnoreCase(""))
+			p.setName("Custom package");
+		addToShoppingCart(p);
+	}
+	
+	
+	
+	
+	
 	@Transactional 
 	public boolean makeOrder(CustomerOrder order)
 	{

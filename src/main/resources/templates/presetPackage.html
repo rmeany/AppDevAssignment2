@@ -17,11 +17,10 @@
 						<div class="col-md-9 main-nav">
 							<ul class="nav text-right">
 								<li><a href="/"><span>Home</span></a></li>
-								<li class="active"><a href="presetPackage">Pre-set Packages</a></li>
-								<li><a href="customPackage">Custom Packages</a></li>
-								<li><a href="flower">Individual Flowers</a></li>
-								<li><a href="order">Orders</a></li>
-								<li><a href="cart">Cart</a></li>
+								<li class="active"><a href="/presetPackage">Pre-set Packages</a></li>
+								<li><a href="/customPackage">Custom Packages</a></li>
+								<li><a href="/admin">Admin login</a></li>
+								<li><a href="/cart">Cart</a></li>
 							</ul>
 						</div>
 					</div>
@@ -37,25 +36,27 @@
 
 				<hr />
 				<p>
-					<span th:text="${package.name}"></span><input type="hidden"
-						th:name="name" th:value="${package.name}"></input> <br />Contains:
-					<br /> <span th:text="${package.flower}"></span> <input
-						type="hidden" th:name="flower.name"
-						th:value="${package.flower.name}"></input> <input type="hidden"
-						th:name="flower.price" th:value="${package.flower.price}"></input>
-					<input type="hidden" th:name="flower.quantity"
-						th:value="${package.flower.quantity}"></input> <input
-						type="hidden" th:name="flower.id" th:value="${package.flower.id}"></input>
-					<br /> <span th:text="${package.addon}"></span> <input
-						type="hidden" th:name="addon.name"
-						th:value="${package.addon.name}"></input> <input type="hidden"
-						th:name="addon.cost" th:value="${package.addon.cost}"></input> <br />Cost:<span
-						th:text="${package.price}"></span><input type="hidden"
-						th:name="price" th:value="${package.price}"></input> <br /> <input
-						type="submit" value="Add to cart"></input>
+					<span th:text="${package.name}"></span>
+					<input type="hidden" th:name="name" th:value="${package.name}"></input> 
+					<input type="hidden" th:name="id" th:value="${package.id}"></input>
+					<br />Contains:<br /> 
+					<span th:text="${package.flower}"></span> 
+					<input type="hidden" th:name="flower.id" th:value="${package.flower.id}"></input>
+					<input type="hidden" th:name="flower.name" th:value="${package.flower.name}"></input> 
+					<input type="hidden" th:name="flower.price" th:value="${package.flower.price}"></input>
+					<input type="hidden" th:name="flower.quantity" th:value="${package.flower.quantity}"></input> 
+					
+					<br /> <span th:text="${package.addon}"></span> 
+					<input type="hidden" th:name="addon.name" th:value="${package.addon.name}"></input> 
+					<input type="hidden" th:name="addon.cost" th:value="${package.addon.cost}"></input> 
+					<br />Cost:&euro;<span th:text="${package.price}"></span>
+					<input type="hidden" th:name="price" th:value="${package.price}"></input> 
+					<br /> <input type="submit" value="Add to cart"></input>
 				</p>
 			</form>
 		</div>
 	</div>
+	
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
