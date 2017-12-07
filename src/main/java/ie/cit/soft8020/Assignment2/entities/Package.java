@@ -7,7 +7,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Package {
 
 	@Id
-	private int id;
+	private String id;
 	private String name;
 	private double price;
 	private Flower flower;
@@ -19,7 +19,16 @@ public class Package {
 
 
 
-	public Package(int id, String name, double price,Flower flower,AddOn addon) {
+	public Package(String name, double price, Flower flower, AddOn addon) {
+		this.name = name;
+		this.price = price;
+		this.flower = flower;
+		this.addon = addon;
+	}
+
+
+
+	public Package(String id, String name, double price,Flower flower,AddOn addon) {
 		this.id = id;
 		this.name = name;
 		this.price = price;
@@ -30,6 +39,14 @@ public class Package {
 	
 	
 	
+	public Package(Flower flower, AddOn addon) {
+
+		this.flower = flower;
+		this.addon = addon;
+	}
+
+
+
 	public Flower getFlower() {
 		return flower;
 	}
@@ -54,10 +71,10 @@ public class Package {
 
 
 
-	public int getId() {
+	public String getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(String id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -72,6 +89,14 @@ public class Package {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Package [id=" + id + ", name=" + name + ", price=" + price + ", flower=" + flower + ", addon=" + addon
+				+ "]";
 	}
 	
 	

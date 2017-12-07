@@ -17,11 +17,10 @@
 						<div class="col-md-9 main-nav">
 							<ul class="nav text-right">
 								<li><a href="/"><span>Home</span></a></li>
-								<li><a href="presetPackage">Pre-set Packages</a></li>
-								<li><a href="customPackage">Custom Packages</a></li>
-								<li><a href="flower">Individual Flowers</a></li>
-								<li><a href="order">Orders</a></li>
-								<li class="active"><a href="cart">Cart</a></li>
+								<li><a href="/presetPackage">Pre-set Packages</a></li>
+								<li><a href="/customPackage">Custom Packages</a></li>
+								<li><a href="/admin">Admin login</a></li>
+								<li class="active"><a href="/cart">Cart</a></li>
 							</ul>
 						</div>
 					</div>
@@ -31,7 +30,7 @@
 	</div>
 	<div class="container">
 		<h3 class="text-right" th:if="${cart.packages.isEmpty() == false}">
-			Total Cost:€<span th:text="${cart.totalCost}"></span>
+			Total Cost:&euro;<span th:text="${cart.totalCost}"></span>
 		</h3>
 		<h3 class="text-right" th:if="${cart.packages.isEmpty() == false}">
 			<a href="/cart/checkout">Checkout</a>
@@ -45,17 +44,18 @@
 			<table class="center">
 				<tr>
 					<th>Name</th>
-					<th>Price</th>
+					<th>Price(&euro;)</th>
 				</tr>
 				<tr th:each="package : ${cart.packages}">
 					<td th:text="${package.name}">NAME</td>
 					<td th:text="${package.price}">PRICE</td>
-					<td><button>WIP</button></td>
+					<td><a th:href="@{/cart/deletePackage/{packageId}(packageId=${package.id})}"><button>Remove from cart</button></a></td>
 				</tr>
 			</table>
 			
 		</div>
 	</div>
 
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>

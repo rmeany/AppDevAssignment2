@@ -2,9 +2,9 @@ package ie.cit.soft8020.Assignment2.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -31,17 +31,12 @@ public class Worker {
 	@Autowired
 	AddOnRepo addonDAO;
 	
-	//Make these more spring like ie autowired or value injection
 	private RestTemplate restTemplate;
 	private String backendURI;
 	private final int FLOREST_ID=3; 
 	private final String FLOREST_NAME="Phillie's flowers";
 	@Autowired
 	private ShoppingCart shoppingCart;
-	
-	//This works but can we put the url in a properties file?
-	@Value("http://localhost:8001")
-	private String test;
 	
 	public Worker()
 	{
@@ -69,6 +64,7 @@ public class Worker {
 		Flower[] f =restTemplate.getForObject(backendURI+"/allFlowers", Flower[].class);
 		return f;
 	}
+	
 	public void addToShoppingCart(Package p)
 	{
 		shoppingCart.add(p);
@@ -77,6 +73,46 @@ public class Worker {
 	{
 		restTemplate.delete(backendURI+"/deleteOrder/"+id);
 	}
+	public Flower getFlowerDetails(String id)
+	{
+		return restTemplate.getForObject(backendURI+"/flowerDetails?id="+id, Flower.class);
+	}
+	public List<CustomerOrder> getCustomerOrders()
+	{
+		return orderDAO.findAll();
+	}
+	public void removeFromCart(String id)
+	{
+		cart.removePackage(id);
+	}
+	public void addCustomPackageToCart(Package p )
+	{
+		
+		String flowerId = p.getFlower().getId();
+		String addonId = p.getAddon().getId();
+		
+		Flower f = getFlowerDetails(flowerId);
+		AddOn a = addonDAO.findOne(addonId);
+		
+		p.getFlower().setName(f.getName());
+		p.getFlower().setPrice(f.getPrice());
+		
+		p.getAddon().setName(a.getName());
+		p.getAddon().setCost(a.getCost());
+		
+		p.setPrice((p.getAddon().getCost()) + (p.getFlower().getQuantity()*p.getFlower().getPrice()));
+		
+		String uniqueID = UUID.randomUUID().toString();
+		p.setId(uniqueID);
+		if(p.getName().equalsIgnoreCase(""))
+			p.setName("Custom package");
+		addToShoppingCart(p);
+	}
+	
+	
+	
+	
+	
 	@Transactional 
 	public boolean makeOrder(CustomerOrder order)
 	{

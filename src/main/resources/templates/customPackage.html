@@ -17,12 +17,10 @@
 						<div class="col-md-9 main-nav">
 							<ul class="nav text-right">
 								<li><a href="/"><span>Home</span></a></li>
-								<li><a href="presetPackage">Pre-set Packages</a></li>
-								<li class="active"><a href="customPackage">Custom
-										Packages</a></li>
-								<li><a href="flower">Individual Flowers</a></li>
-								<li><a href="order">Orders</a></li>
-								<li><a href="cart">Cart</a></li>
+								<li><a href="/presetPackage">Pre-set Packages</a></li>
+								<li class="active"><a href="/customPackage">Custom Packages</a></li>
+								<li><a href="/admin">Admin login</a></li>
+								<li><a href="/cart">Cart</a></li>
 							</ul>
 						</div>
 					</div>
@@ -30,30 +28,38 @@
 			</div>
 		</header>
 	</div>
-	<form>
+	<form class="text-center" th:object="${Package}"
+		th:action="@{/customPackage}" method="post">
+
+
+
 		<div class="container">
-			<h2 class="text-center">Choose a flower type and a quantity</h2>
-			<table>
-				<thead>
-					<tr>
-						<th>Name</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr th:each="flower : ${Flowers}">
-						<td th:text="${flower.name}"></td>
-					</tr>
-				</tbody>
-			</table>
-			<div class="text-center" th:each="flower : ${Flowers}">
-				<span th:text="${flower.name}"></span>
-			</div>
-			<h2 class="text-center">Choose a addon for your package</h2>
-			<div class="text-center" th:each="addon : ${Addons}">
-				<span th:text="${addon.name}"></span>
-			</div>
+			<h2>Choose a flower type and a quantity</h2>
+			<p>
+				<select th:field="*{flower.id}" th:name="flower.id">
+					<option th:each="flower : ${Flowers}" th:value="${flower.id}"
+						th:text="${flower.name}">FLOWER NAME</option>
+
+				</select>
+			</p>
+			<input th:field="*{flower.quantity}" type="number" min="1"></input>
+			<h2>Choose a addon for your package</h2>
+			<p>
+				<select th:field="*{addon.id}" th:name="addon.id">
+					<option th:each="addon : ${Addons}" th:value="${addon.id}"
+						th:text="${addon.name}">ADDON NAME</option>
+				</select>
+			</p>
+			<h2>Name your package</h2>
+			<p>
+				<input type="text" th:field="*{name}" min="1"></input>
+			</p>
+			<input type="submit" value="Add to cart"></input>
+
+
 		</div>
 	</form>
 
+<div th:replace="fragments/footer :: footer"></div>
 </body>
 </html>
