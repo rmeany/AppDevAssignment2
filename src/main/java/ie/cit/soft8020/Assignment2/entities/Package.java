@@ -1,6 +1,5 @@
 package ie.cit.soft8020.Assignment2.entities;
 
-import org.hibernate.validator.constraints.NotEmpty;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -9,7 +8,6 @@ public class Package {
 
 	@Id
 	private String id;
-	@NotEmpty
 	private String name;
 	private double price;
 	private Flower flower;

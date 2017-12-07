@@ -1,7 +1,5 @@
 package ie.cit.soft8020.Assignment2.controllers;
 
-import java.util.List;
-
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,80 +9,33 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
-import ie.cit.soft8020.Assignment2.entities.AddOn;
 import ie.cit.soft8020.Assignment2.entities.CustomerOrder;
-import ie.cit.soft8020.Assignment2.entities.Flower;
-import ie.cit.soft8020.Assignment2.entities.Person;
 import ie.cit.soft8020.Assignment2.entities.Package;
-import ie.cit.soft8020.Assignment2.repositories.PersonRepo;
 import ie.cit.soft8020.Assignment2.utils.Worker;
 
 @Controller
 public class Controllers {
-	@Autowired
-	PersonRepo personDAO;
+	
 	@Autowired
 	Worker worker;
 
-
-	/**
-	 * Calls index.html
-	 */
+	//Index mapping
 	@GetMapping("/")
 	public String doWelcomeWithParams(Model model)
 	{
 		return "index";
 	}
-
-	/*
-	 * An example of using a path variable.
-	 * localhost:8080/usingParameter?name=Ryan will add Ryan to the welcome
-	 * localhost:8080/usingParameter uses the default value of To You!
-	 */
-	@GetMapping("/usingParameter")
-	public String doWelcomeWithParams(@RequestParam(value="name", defaultValue=
-			"To	You!")String name, Model model)
-	{
-		String sentence = "Welcome " + name;
-		model.addAttribute("message", sentence);
-		return "parameter";
-	}
-
-	/*
-	 * The repository uses the in-built findAll() method of MongoRepository
-	 * This returns a list of People
-	 * This list is added to the model
-	 * The model is sent to the displayAll.html template.
-	 */
-	@GetMapping("/home")
-	public String home(Model model)
-	{
-		doWelcomeWithParams(model);
-		return "home";
-	}
-
-	/*
-	 * The repository uses the in-built findAll() method of MongoRepository
-	 * This returns a list of People
-	 * This list is added to the model
-	 * The model is sent to the displayAll.html template.
-	 */
-	@GetMapping("/displayAll")
-	public String displayAll(Model model)
-	{
-		List<Person> p = personDAO.findAll();
-		model.addAttribute("people", p);
-		return "displayAll";
-	}
+	
+	//Preset packages mapping
 	@GetMapping("/presetPackage")
 	public String presetPackage(Model model)
 	{
 		model.addAttribute("packages", worker.presets());
 		return "/presetPackage";
 	}
+	
+	//Custom packages mapping
 	@GetMapping("/customPackage")
 	public String customPackage(Model model)
 	{
@@ -97,16 +48,14 @@ public class Controllers {
 	@PostMapping("/customPackage")
 	public String customPackage(Package p )
 	{
-		
 		worker.addCustomPackageToCart(p);
-
 		return "redirect:/cart";	
 	}
-	@GetMapping("/admin/orders/deleteOrder/{orderId}")
-	public String deleteOrder(@PathVariable String orderId,Model model)
-	{
-		worker.deleteOrder(orderId);
-		return "redirect:/admin/orders";
+
+	//Admin mappings
+	@GetMapping("/admin")
+	public String admin() {
+		return "/admin";
 	}
 	@GetMapping("/admin/flowers")
 	public String flower(Model model)
@@ -114,41 +63,18 @@ public class Controllers {
 		model.addAttribute("flowers", worker.getFlowers());
 		return "flowers";
 	}
-
-	@GetMapping("/cart")
-	public String cart(Model model)
-	{
-		model.addAttribute("cart", worker.getCart());
-		return "cart";
-	}
-
-
-	@GetMapping("/cart/checkout")
-	public String checkout(CustomerOrder customerOrder,Model m)
-	{
-		return "checkout";
-	}
-
-	@PostMapping("/cart/checkout")
-	public String checkoutPost(@Valid CustomerOrder ord,BindingResult bindingResult)
-	{
-		
-
-		if (bindingResult.hasErrors()) {
-			return "checkout"; 
-		}
-		
-		worker.makeOrder(ord);
-		return "redirect:/";
-	}
-
 	@GetMapping("/admin/orders")
 	public String order(Model model)
 	{
 		model.addAttribute("orders", worker.myOrders());
 		return "orders";
 	}
-
+	@GetMapping("/admin/orders/deleteOrder/{orderId}")
+	public String deleteOrder(@PathVariable String orderId,Model model)
+	{
+		worker.deleteOrder(orderId);
+		return "redirect:/admin/orders";
+	}
 	@GetMapping("/admin/customerorders")
 	public String customerOrders(Model model)
 	{
@@ -156,50 +82,61 @@ public class Controllers {
 		return "customerorders";
 	}
 	
-	/*
-	 * This uses a PathVariable to specify the id being searched for.
-	 * findOne() is the default method to search for one record using MongoRepository.
-	 * It returns one record.
-	 * This record is added to the model.
-	 * The model is sent to the displayOne.html resolver.
-	 */
-	@GetMapping("/displayOne/{id}")
-	public String showMyDetails(@PathVariable int id, Model model)
+	//Cart mappings
+	@GetMapping("/cart")
+	public String cart(Model model)
 	{
-		Person p = (Person) personDAO.findOne((int) id);
-		model.addAttribute("person", p);
-		return "displayOne";
+		model.addAttribute("cart", worker.getCart());
+		return "cart";
 	}
-
-
-
-
+	@GetMapping("/cart/checkout")
+	public String checkout(CustomerOrder customerOrder,Model m)
+	{
+		return "checkout";
+	}
+	@PostMapping("/cart/checkout")
+	public String checkoutPost(@Valid CustomerOrder ord,BindingResult bindingResult)
+	{
+		if (bindingResult.hasErrors())
+			return "checkout"; 
+		worker.makeOrder(ord);
+		return "redirect:/";
+	}
 	@PostMapping("/cart/addPackage")
 	public String addToCart(Package p)
 	{
 		worker.addToShoppingCart(p);
 		return "redirect:/cart";	
 	}
-	@GetMapping("/admin")
-	public String admin() {
-		return "/admin";
+	@GetMapping("/cart/deletePackage/{packageId}")
+	public String deletePackage(@PathVariable String packageId)
+	{
+		worker.removeFromCart(packageId);
+		return "redirect:/cart";
 	}
-
-	// Login form
-	@RequestMapping("/login")
+	
+	
+	//Authentication mapping
+	@GetMapping("/login")
 	public String login() {
 		return "login";
 	}
-
-	@GetMapping("/403")
-	public String error403() {
-		return "/error/403";
-	}
-	@RequestMapping("/login-error")
+	@GetMapping("/login-error")
 	public String loginError(Model model) {
 		model.addAttribute("loginError", true);
 		return "login";
 	}
+	@GetMapping("/403")
+	public String error403() {
+		return "/error/403";
+	}
+	
+	//Error mappings
+	@GetMapping("/error")
+	public String error() {
+		return "/error";
+	}
+	
 
 
 }

@@ -49,7 +49,7 @@
 				<tr th:each="package : ${cart.packages}">
 					<td th:text="${package.name}">NAME</td>
 					<td th:text="${package.price}">PRICE</td>
-					<td><button>WIP</button></td>
+					<td><a th:href="@{/cart/deletePackage/{packageId}(packageId=${package.id})}"><button>Remove from cart</button></a></td>
 				</tr>
 			</table>
 			

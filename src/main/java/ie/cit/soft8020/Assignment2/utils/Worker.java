@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -32,17 +31,12 @@ public class Worker {
 	@Autowired
 	AddOnRepo addonDAO;
 	
-	//Make these more spring like ie autowired or value injection
 	private RestTemplate restTemplate;
 	private String backendURI;
 	private final int FLOREST_ID=3; 
 	private final String FLOREST_NAME="Phillie's flowers";
 	@Autowired
 	private ShoppingCart shoppingCart;
-	
-	//This works but can we put the url in a properties file?
-	@Value("http://localhost:8001")
-	private String test;
 	
 	public Worker()
 	{
@@ -87,7 +81,10 @@ public class Worker {
 	{
 		return orderDAO.findAll();
 	}
-	
+	public void removeFromCart(String id)
+	{
+		cart.removePackage(id);
+	}
 	public void addCustomPackageToCart(Package p )
 	{
 		

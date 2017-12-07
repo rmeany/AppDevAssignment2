@@ -31,10 +31,17 @@ public class ShoppingCart {
 		increaseCost(p.getPrice());
 		this.packages.add(p);
 	}
-	public void removePackage(Package p)
+	public void removePackage(String id)
 	{
-		decreaseCost(p.getPrice());
-		this.packages.remove(p);
+		for(Package p : packages)
+		{
+			if(p.getId().equalsIgnoreCase(id))
+			{
+				decreaseCost(p.getPrice());
+				this.packages.remove(p);
+				break;
+			}
+		}
 	}
 	
 	

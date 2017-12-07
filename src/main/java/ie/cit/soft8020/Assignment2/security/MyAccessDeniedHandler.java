@@ -1,4 +1,4 @@
-package ie.cit.soft8020.Assignment2;
+package ie.cit.soft8020.Assignment2.security;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
