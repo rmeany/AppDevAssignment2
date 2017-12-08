@@ -17,13 +17,13 @@ public class CustomerOrder {
 	private ArrayList<Package> packages;
 	
 	@NotNull
-	@Size(min=3,max=255)
+	@Size(min=1)
 	private String fName;
 	@NotNull
-	@Size(min=3,max=255)
+	@Size(min=1)
 	private String lName;
 	@NotNull
-	@Size(min=5,max=255)
+	@Size(min=5)
 	private String address;
 	@NotNull
 	@CreditCardNumber

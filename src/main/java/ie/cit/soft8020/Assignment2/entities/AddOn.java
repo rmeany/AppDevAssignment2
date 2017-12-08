@@ -15,6 +15,14 @@ public class AddOn {
 	
 	public AddOn() {
 	}
+	
+	public AddOn(String id, String name, double cost) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.cost = cost;
+	}
+
 	public AddOn(String name, double cost) {
 		this.name = name;
 		this.cost = cost;
