@@ -9,14 +9,15 @@
     <div class="container">
 
         <footer>
-        © 2017 Ryan Meany and Padraigh Jarvis
+        Ryan Meany and Padraigh Jarvis
             <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
                 Roles: <span sec:authentication="principal.authorities"></span> |
                 <a th:href="@{/logout}">Sign Out</a>
             </span>
 
-
+		<br/>
+		Language: <a href="/?lang=en">English</a>|<a href="/?lang=fr">French</a>
         </footer>
     </div>
 
