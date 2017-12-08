@@ -9,7 +9,7 @@
     <div class="container">
 
         <footer>
-        Ryan Meany and Padraigh Jarvis
+        <span th:text="#{creators}"></span>
             <span sec:authorize="isAuthenticated()">
                 | Logged user: <span sec:authentication="name"></span> |
                 Roles: <span sec:authentication="principal.authorities"></span> |
@@ -17,7 +17,7 @@
             </span>
 
 		<br/>
-		Language: <a href="/?lang=en">English</a>|<a href="/?lang=fr">French</a>
+		<span th:text="#{lang}"></span> <a href="?lang=en" th:text="#{lang.eng}"></a>|<a href="?lang=fr" th:text="#{lang.fr}"></a>
         </footer>
     </div>
 
